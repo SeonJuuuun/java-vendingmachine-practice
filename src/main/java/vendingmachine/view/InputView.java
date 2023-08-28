@@ -9,11 +9,11 @@ public class InputView {
     private static final String INVALID_INPUT_BLANK = "[ERROR] 값을 입력해주세요.";
     private static final String INVALID_INPUT_NATURAL = "[ERROR] 보유 금액은 0보다 커야 합니다.";
 
-    public static String inputVendingMachinePrice() {
+    public static int inputVendingMachinePrice() {
         System.out.println(INPUT_VENDING_MACHINE_PRICE);
         String price = Console.readLine();
         validateInputPrice(price);
-        return price;
+        return Integer.parseInt(price);
     }
 
     public static void validateInputPrice(String price) {
