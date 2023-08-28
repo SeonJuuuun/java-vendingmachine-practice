@@ -7,19 +7,15 @@ import java.util.Map;
 public class CoinGroup {
 
     public final Map<Coin, Integer> coins = new HashMap<>();
-
-    public CoinGroup(Money money) {
-        initMap();
-        separateCoin(money);
-    }
-
+    
     private void initMap() {
         for (Coin coin : Coin.values()) {
             coins.put(coin, 0);
         }
     }
 
-    private void separateCoin(Money money) {
+    public Map<Coin, Integer> separateCoin(Money money) {
+        initMap();
         while (!money.isEmpty()) {
             Coin coin = Coin.getCoin(Randoms.pickNumberInList(Coin.toList()));
             if (money.isBiggerOrSame(coin.getAmount())) {
@@ -27,5 +23,6 @@ public class CoinGroup {
                 money.spend(coin.getAmount());
             }
         }
+        return coins;
     }
 }
