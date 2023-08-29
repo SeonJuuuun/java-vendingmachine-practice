@@ -22,10 +22,11 @@ public class VendingMachineController {
         Products products = new Products(insertProduct());
         VendingMachine vendingMachine = new VendingMachine(products, insertPrice());
         soldOutOrEmptyPrice(vendingMachine);
+        OutputView.printRemainingCoin(vendingMachine,coinGroup);
     }
 
     private void soldOutOrEmptyPrice(VendingMachine vendingMachine) {
-        while (!vendingMachine.isSoldOut()) {
+        while (!vendingMachine.isSoldOut() && vendingMachine.priceOfRemainingProduct()) {
             OutputView.printPrice(vendingMachine.getPrice());
             String productName = inputProductName();
             vendingMachine.purchaseProduct(productName);
