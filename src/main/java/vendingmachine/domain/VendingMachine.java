@@ -31,4 +31,8 @@ public class VendingMachine {
     public boolean isSoldOut() {
         return products.isSoldOut();
     }
+
+    public boolean priceOfRemainingProduct() {
+        return price > products.getMinProductPrice();
+    }
 }
