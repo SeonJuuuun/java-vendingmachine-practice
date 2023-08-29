@@ -47,4 +47,9 @@ public class CoinGroup {
                 LinkedHashMap::new
             ));
     }
+
+    public Map<Coin, Integer> getCoins() {
+        return coins;
+    }
+
 }
