@@ -33,4 +33,11 @@ public class Products {
         }
         return false;
     }
+
+    public int getMinProductPrice() {
+        return productGroup.stream()
+            .mapToInt(Product::getPrice)
+            .min()
+            .orElse(0);
+    }
 }
