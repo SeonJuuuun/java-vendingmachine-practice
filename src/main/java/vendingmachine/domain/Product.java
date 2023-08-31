@@ -26,6 +26,10 @@ public class Product {
         return price;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
     public boolean isSoldOut() {
         return this.quantity == 0;
     }
