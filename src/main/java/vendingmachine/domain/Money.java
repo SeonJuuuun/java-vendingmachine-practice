@@ -2,6 +2,8 @@ package vendingmachine.domain;
 
 public class Money {
 
+    private static final int START_MONEY_PRICE = 10;
+
     private int money;
 
     public Money(int money) {
@@ -35,7 +37,7 @@ public class Money {
     }
 
     private void checkMoneyRange(int input) {
-        if (input < 10) {
+        if (input < START_MONEY_PRICE) {
             throw new IllegalArgumentException("[ERROR] 자판기의 동전은 10원이상 입력 가능합니다.");
         }
     }

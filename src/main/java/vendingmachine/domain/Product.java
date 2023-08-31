@@ -2,6 +2,9 @@ package vendingmachine.domain;
 
 public class Product {
 
+    private static final int MIN_PRODUCT_EXCEPTION = 10;
+    private static final int START_PRODUCT_PRICE = 100;
+
     private final String name;
     private final int price;
 
@@ -49,10 +52,10 @@ public class Product {
     }
 
     private void checkPriceRange(int input) {
-        if (input < 100) {
+        if (input < START_PRODUCT_PRICE) {
             throw new IllegalArgumentException("[ERROR] 상품 가격은 100원부터 시작합니다.");
         }
-        if (!(input % 10 == 0)) {
+        if (!(input % MIN_PRODUCT_EXCEPTION == 0)) {
             throw new IllegalArgumentException("[ERROR] 상품 가격은 10원으로 나누어 떨어져야 합니다.");
         }
     }

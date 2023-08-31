@@ -8,13 +8,10 @@ import vendingmachine.domain.Product;
 public class InputView {
 
     private static final String LINE_BREAK = "\n";
-    private static final String INPUT_VENDING_MACHINE_PRICE = "자판기가 보유하고 있는 금액을 입력해 주세요.";
-    private static final String INVALID_INPUT_INTEGER = "[ERROR] 입력은 숫자만 가능합니다.";
-    private static final String INVALID_INPUT_BLANK = "[ERROR] 값을 입력해주세요.";
-    private static final String INVALID_INPUT_NATURAL = "[ERROR] 보유 금액은 0보다 커야 합니다.";
+    private static final int PRODUCT_SIZE = 3;
 
     public static int inputVendingMachinePrice() {
-        System.out.println(INPUT_VENDING_MACHINE_PRICE);
+        System.out.println("자판기가 보유하고 있는 금액을 입력해 주세요.");
         String price = Console.readLine();
         validateInput(price);
         return Integer.parseInt(price);
@@ -31,7 +28,7 @@ public class InputView {
         List<Product> products = new ArrayList<>();
         for (String productString : productStrings) {
             String[] fields = productString.replaceAll("[\\[\\]]", "").split(",");
-            if (fields.length == 3) {
+            if (fields.length == PRODUCT_SIZE) {
                 products.add(new Product(fields[0], Integer.parseInt(fields[1]), Integer.parseInt(fields[2])));
             }
         }
@@ -64,19 +61,19 @@ public class InputView {
         try {
             Integer.valueOf(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(INVALID_INPUT_INTEGER);
+            throw new IllegalArgumentException("[ERROR] 입력은 숫자만 가능합니다.");
         }
     }
 
     private static void validateBlank(String input) {
         if (input.length() == 0) {
-            throw new IllegalArgumentException(INVALID_INPUT_BLANK);
+            throw new IllegalArgumentException("[ERROR] 값을 입력해주세요.");
         }
     }
 
     private static void validateNatural(String input) {
         if(Integer.parseInt(input) < 1 ){
-            throw new IllegalArgumentException(INVALID_INPUT_NATURAL);
+            throw new IllegalArgumentException("[ERROR] 보유 금액은 0보다 커야 합니다.");
         }
     }
 }
