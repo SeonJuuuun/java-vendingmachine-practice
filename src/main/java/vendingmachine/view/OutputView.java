@@ -21,7 +21,7 @@ public class OutputView {
 
     public static void printPrice(int price) {
         System.out.print(LINE_BREAK);
-        System.out.println("투입 금액 : " + price + "원");
+        System.out.println("투입 금액: " + price + "원");
     }
 
     public static void printRemainingCoin(VendingMachine vendingMachine, CoinGroup coinGroup) {
