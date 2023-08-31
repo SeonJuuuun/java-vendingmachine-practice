@@ -28,7 +28,7 @@ public class InputView {
         List<Product> products = new ArrayList<>();
 
         for (String productString : productStrings) {
-            validateProductInput(productString);
+            validateProductInputSeparator(productString);
 
             String[] fields = productString.replaceAll("[\\[\\]]", "").split(",");
             if (fields.length == PRODUCT_SIZE) {
@@ -82,28 +82,20 @@ public class InputView {
         }
     }
 
-    private static void validateProductInputFormat(String input) {
+    private static void validateProductInputSeparator(String input) {
         String[] productSets = input.split(";");
         for (String productSet : productSets) {
-            if (!productSet.matches("\\[.+\\]")) {
+            if (!productSet.matches("\\[.*\\]")) {
                 throw new IllegalArgumentException("[ERROR] 세트는 대괄호([])로 묶여야 합니다.");
             }
-            String[] productInfo = productSet.replaceAll("[\\[\\]]", "").split(",");
-            if (productInfo.length != 3) {
+            String[] productInfo = productSet.substring(1, productSet.length() - 1).split(",");
+            if (productInfo.length < PRODUCT_SIZE) {
                 throw new IllegalArgumentException("[ERROR] 세트에 상품명, 가격, 수량을 모두 입력해주세요.");
             }
-        }
-    }
+            if (productInfo.length > PRODUCT_SIZE) {
+                throw new IllegalArgumentException("[ERROR] 세트들은 세미콜론(;)로 구분되어야 합니다.");
+            }
 
-    private static void validateProductInputSeparator(String input) {
-        if (!input.matches("^(\\[.+\\];)+\\[.+\\]$")) {
-            throw new IllegalArgumentException(
-                "[ERROR] 각 세트는 대괄호([])로 묶여야 하며, 세트들은 세미콜론(;)로 구분되어야 합니다.");
         }
-    }
-
-    private static void validateProductInput(String input) {
-        validateProductInputFormat(input);
-        validateProductInputSeparator(input);
     }
 }
