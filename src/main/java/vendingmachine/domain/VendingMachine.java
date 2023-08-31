@@ -10,29 +10,29 @@ public class VendingMachine {
         this.price = price;
     }
 
-    public Products getProducts() {
-        return products;
-    }
-
     public int getPrice() {
         return price;
     }
 
     public void purchaseProduct(String productName) {
         Product product = products.getProductByName(productName);
-        if (product != null) {
-            if (price >= product.getPrice()) {
-                price -= product.getPrice();
-                products.decreaseQuantity(productName);
-            }
+        if (price < product.getPrice()) {
+            throw new IllegalArgumentException("돈이 부족합니다.");
+        }
+        if (price >= product.getPrice()) {
+            price -= product.getPrice();
+            products.decreaseQuantity(productName);
         }
     }
 
-    public boolean isSoldOut() {
-        return products.isSoldOut();
+    public void soldOut(String productName) {
+        Product product = products.getProductByName(productName);
+        if (product.isSoldOut()) {
+            throw new IllegalArgumentException("[ERROR] 상품 재고가 없습니다.");
+        }
     }
 
-    public boolean priceOfRemainingProduct() {
-        return price > products.getMinProductPrice();
+    public boolean priceOfRemainingProductPrice() {
+        return price < products.getMinProductPrice();
     }
 }
