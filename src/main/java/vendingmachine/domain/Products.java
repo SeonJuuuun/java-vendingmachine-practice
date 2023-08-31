@@ -17,21 +17,12 @@ public class Products {
                 return product;
             }
         }
-        throw new IllegalArgumentException("입력하신 상품은 자판기에 팔지 않습니다.");
+        throw new IllegalArgumentException("[ERROR] 입력하신 상품은 자판기에 팔지 않습니다.");
     }
 
     public void decreaseQuantity(String productName) {
         Product product = getProductByName(productName);
         product.decreaseQuantity();
-    }
-
-    public boolean isSoldOut() {
-        for (Product product : productGroup) {
-            if (product.isSoldOut()) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public int getMinProductPrice() {

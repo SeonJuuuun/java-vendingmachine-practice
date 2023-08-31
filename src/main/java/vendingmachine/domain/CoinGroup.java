@@ -1,12 +1,9 @@
 package vendingmachine.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -37,9 +34,7 @@ public class CoinGroup {
 
     private LinkedHashMap<Coin, Integer> sortCoinGroup(Map<Coin, Integer> map) {
         return map.entrySet().stream()
-            .sorted(
-                Map.Entry.<Coin, Integer>comparingByKey(Comparator.comparingInt(Coin::getAmount))
-                    .reversed())
+            .sorted(Comparator.comparingInt((Map.Entry<Coin, Integer> entry) -> entry.getKey().getAmount()).reversed())
             .collect(Collectors.toMap(
                 Map.Entry::getKey,
                 Map.Entry::getValue,
