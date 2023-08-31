@@ -53,10 +53,9 @@ public class InputView {
         return Console.readLine();
     }
 
-    public static void validateInput(String price) {
+    private static void validateInput(String price) {
         validateBlank(price);
         checkInteger(price);
-        validateNatural(price);
     }
 
     private static void checkInteger(String input) {
@@ -73,25 +72,32 @@ public class InputView {
         }
     }
 
-    private static void validateNatural(String input) {
-        if (Integer.parseInt(input) < 1) {
-            throw new IllegalArgumentException("[ERROR] 보유 금액은 0보다 커야 합니다.");
-        }
-    }
-
     private static void validateProductInputSeparator(String input) {
         String[] productSets = input.split(";");
         for (String productSet : productSets) {
-            if (!productSet.matches("\\[.*\\]")) {
-                throw new IllegalArgumentException("[ERROR] 세트는 대괄호([])로 묶여야 합니다.");
-            }
-            String[] productInfo = productSet.substring(1, productSet.length() - 1).split(",");
-            if (productInfo.length < PRODUCT_SIZE) {
-                throw new IllegalArgumentException("[ERROR] 세트에 상품명, 가격, 수량을 모두 입력해주세요.");
-            }
-            if (productInfo.length > PRODUCT_SIZE) {
-                throw new IllegalArgumentException("[ERROR] 세트들은 세미콜론(;)로 구분되어야 합니다.");
-            }
+            validateBrackets(productSet);
+            String productInfoString = productSet.replaceAll("\\[|\\]", "");
+            String[] productInfo = productInfoString.split(",");
+            validateProduct(productInfo);
+            validateSemiColon(productInfo);
+        }
+    }
+
+    private static void validateSemiColon(String[] productInfo) {
+        if (productInfo.length > PRODUCT_SIZE) {
+            throw new IllegalArgumentException("[ERROR] 세트들은 세미콜론(;)로 구분되어야 합니다.");
+        }
+    }
+
+    private static void validateProduct(String[] productInfo) {
+        if (productInfo.length < PRODUCT_SIZE) {
+            throw new IllegalArgumentException("[ERROR] 세트에 상품명, 가격, 수량을 모두 입력해주세요.");
+        }
+    }
+
+    private static void validateBrackets(String productSet) {
+        if (!productSet.matches("\\[.*\\]")) {
+            throw new IllegalArgumentException("[ERROR] 세트는 대괄호([])로 묶여야 합니다.");
         }
     }
 }
