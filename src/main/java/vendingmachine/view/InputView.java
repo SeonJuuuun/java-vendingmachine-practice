@@ -26,17 +26,14 @@ public class InputView {
 
     private static List<Product> parseProducts(String[] productStrings) {
         List<Product> products = new ArrayList<>();
-
         for (String productString : productStrings) {
             validateProductInputSeparator(productString);
-
             String[] fields = productString.replaceAll("[\\[\\]]", "").split(",");
             if (fields.length == PRODUCT_SIZE) {
                 products.add(new Product(fields[0], Integer.parseInt(fields[1]),
                     Integer.parseInt(fields[2])));
             }
         }
-
         if (products.isEmpty()) {
             throw new IllegalArgumentException("[ERROR] 유효한 상품 정보가 없습니다.");
         }
@@ -95,7 +92,6 @@ public class InputView {
             if (productInfo.length > PRODUCT_SIZE) {
                 throw new IllegalArgumentException("[ERROR] 세트들은 세미콜론(;)로 구분되어야 합니다.");
             }
-
         }
     }
 }
