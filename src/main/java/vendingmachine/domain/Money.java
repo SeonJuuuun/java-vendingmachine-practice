@@ -23,6 +23,10 @@ public class Money {
         return money == 0;
     }
 
+    public int getMoney() {
+        return money;
+    }
+
     private void validateMoney(int money) {
         checkInteger(money);
         checkMoneyRange(money);
