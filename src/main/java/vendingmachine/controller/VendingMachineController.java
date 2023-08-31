@@ -16,14 +16,24 @@ public class VendingMachineController {
     }
 
     private void start() {
-        Money money = inputVendingMachineMoney();
-        CoinGroup coinGroup = new CoinGroup();
-        OutputView.printMap(coinGroup.separateCoin(money));
-        Products products = new Products(insertProduct());
-        VendingMachine vendingMachine = new VendingMachine(products, insertPrice());
+        CoinGroup coinGroup = settingCoin();
+        VendingMachine vendingMachine = settingVendingMachine();
         vendingMachineCalculate(vendingMachine);
         OutputView.printPrice(vendingMachine.getPrice());
         OutputView.printRemainingCoin(vendingMachine, coinGroup);
+    }
+
+    private CoinGroup settingCoin() {
+        Money money = inputVendingMachineMoney();
+        CoinGroup coinGroup = new CoinGroup();
+        OutputView.printMap(coinGroup.separateCoin(money));
+        return coinGroup;
+    }
+
+    private VendingMachine settingVendingMachine() {
+        Products products = new Products(insertProduct());
+        VendingMachine vendingMachine = new VendingMachine(products, insertPrice());
+        return vendingMachine;
     }
 
     private void vendingMachineCalculate(VendingMachine vendingMachine) {
