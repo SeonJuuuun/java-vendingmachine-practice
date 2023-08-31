@@ -26,12 +26,17 @@ public class InputView {
 
     private static List<Product> parseProducts(String[] productStrings) {
         List<Product> products = new ArrayList<>();
+
         for (String productString : productStrings) {
+            validateProductInput(productString);
+
             String[] fields = productString.replaceAll("[\\[\\]]", "").split(",");
             if (fields.length == PRODUCT_SIZE) {
-                products.add(new Product(fields[0], Integer.parseInt(fields[1]), Integer.parseInt(fields[2])));
+                products.add(new Product(fields[0], Integer.parseInt(fields[1]),
+                    Integer.parseInt(fields[2])));
             }
         }
+
         if (products.isEmpty()) {
             throw new IllegalArgumentException("[ERROR] 유효한 상품 정보가 없습니다.");
         }
@@ -72,8 +77,33 @@ public class InputView {
     }
 
     private static void validateNatural(String input) {
-        if(Integer.parseInt(input) < 1 ){
+        if (Integer.parseInt(input) < 1) {
             throw new IllegalArgumentException("[ERROR] 보유 금액은 0보다 커야 합니다.");
         }
+    }
+
+    private static void validateProductInputFormat(String input) {
+        String[] productSets = input.split(";");
+        for (String productSet : productSets) {
+            if (!productSet.matches("\\[.+\\]")) {
+                throw new IllegalArgumentException("[ERROR] 세트는 대괄호([])로 묶여야 합니다.");
+            }
+            String[] productInfo = productSet.replaceAll("[\\[\\]]", "").split(",");
+            if (productInfo.length != 3) {
+                throw new IllegalArgumentException("[ERROR] 세트에 상품명, 가격, 수량을 모두 입력해주세요.");
+            }
+        }
+    }
+
+    private static void validateProductInputSeparator(String input) {
+        if (!input.matches("^(\\[.+\\];)+\\[.+\\]$")) {
+            throw new IllegalArgumentException(
+                "[ERROR] 각 세트는 대괄호([])로 묶여야 하며, 세트들은 세미콜론(;)로 구분되어야 합니다.");
+        }
+    }
+
+    private static void validateProductInput(String input) {
+        validateProductInputFormat(input);
+        validateProductInputSeparator(input);
     }
 }
