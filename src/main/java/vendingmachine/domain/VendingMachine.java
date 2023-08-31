@@ -17,7 +17,7 @@ public class VendingMachine {
     public void purchaseProduct(String productName) {
         Product product = products.getProductByName(productName);
         if (price < product.getPrice()) {
-            throw new IllegalArgumentException("돈이 부족합니다.");
+            throw new IllegalArgumentException("[ERROR] 돈이 부족합니다.");
         }
         if (price >= product.getPrice()) {
             price -= product.getPrice();
