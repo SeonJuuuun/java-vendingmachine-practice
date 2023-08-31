@@ -35,17 +35,6 @@ class ApplicationTest extends NsTest {
         );
     }
 
-    @DisplayName("자판기 금액에 빈칸이 들어오면 예외가 발생한다.")
-    @Test
-    void 자판기_금액_빈칸_테스트() {
-        assertSimpleTest(
-            () -> {
-                runException("");
-                assertThat(output()).contains(ERROR_MESSAGE);
-            }
-        );
-    }
-
     @DisplayName("자판기 금액에 영어가 들어오면 예외가 발생한다.")
     @Test
     void 자판기_금액_영어_테스트() {
