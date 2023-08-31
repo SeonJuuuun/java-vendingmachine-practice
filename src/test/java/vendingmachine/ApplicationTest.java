@@ -1,6 +1,7 @@
 package vendingmachine;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInListTest;
@@ -29,6 +30,17 @@ class ApplicationTest extends NsTest {
         assertSimpleTest(
             () -> {
                 runException("-1");
+                assertThat(output()).contains(ERROR_MESSAGE);
+            }
+        );
+    }
+
+    @DisplayName("자판기 금액에 영어가 들어오면 예외가 발생한다.")
+    @Test
+    void 자판기_금액_영어_테스트() {
+        assertSimpleTest(
+            () -> {
+                runException("a");
                 assertThat(output()).contains(ERROR_MESSAGE);
             }
         );
